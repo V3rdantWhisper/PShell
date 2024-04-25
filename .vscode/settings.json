@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "signal.h": "c",
+        "syscall.h": "c",
+        "errno.h": "c",
+        "unistd.h": "c",
+        "string.h": "c",
+        "sigaction.h": "c",
+        "cstdint": "c",
+        "stdint.h": "c",
+        "typeinfo": "c"
+    }
+}

@@ -22,3 +22,5 @@ make debug IP=127.0.0.1 PORT=12345
 
 同时，守护进程和反弹shell竞争同一个文件锁，当shell进程被kill掉之后，文件锁会被OS自动释放，父进程获得文件锁，检测到shell进程死亡，恢复shell进程
 
+
+writed by v3rdant.

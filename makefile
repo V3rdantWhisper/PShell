@@ -1,10 +1,11 @@
 IP ?= 127.0.0.1
 PORT ?= 4444
-CFLAG := --static -s
-SOCKET_VAL := $(shell python convert.py $(IP) $(PORT))
+CFLAG := --static  
+ASMFLAGS := -f bin
+SOCKET_VAL := $(shell python3 convert.py $(IP) $(PORT))
 
 all:
-	gcc -DSOCKET_VAL=$(SOCKET_VAL) -o Pshell ProtectShell.c $(CFLAG)
+	nasm -DSOCKET_VAL=$(SOCKET_VAL) -o dawn ./Pshell.s $(ASMFLAGS)
 
 debug:
-	gcc -DSOCKET_VAL=$(SOCKET_VAL) -DDEBUG -o dawn ProtectShell.c $(CFLAG)
+	gcc -DDEBUG -DSOCKET_VAL=$(SOCKET_VAL) -g -o dawn ./Pshell.c $(CFLAG) 
